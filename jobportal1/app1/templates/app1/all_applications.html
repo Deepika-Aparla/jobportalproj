@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <h1>All Applications (Recruiter)</h1>
+<ul>
+{% for app in applications %}
+    <li>
+        {{ app.user.username }} applied for {{ app.job.title }} - Status: {{ app.status }}
+        | Resume: <a href="{{ app.resume.url }}" target="_blank">View</a>
+        | Change Status: 
+        <a href="{% url 'change_status' app.id 'under_review' %}">Under Review</a> |
+        <a href="{% url 'change_status' app.id 'hired' %}">Hired</a> |
+        <a href="{% url 'change_status' app.id 'rejected' %}">Rejected</a>
+    </li>
+{% endfor %}
+</ul>
+<a href="{% url 'job_list' %}">Back to Jobs</a>
+ 
+</body>
+</html>

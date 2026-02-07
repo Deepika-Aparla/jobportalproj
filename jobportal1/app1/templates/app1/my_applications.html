@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- templates/my_applications.html -->
+<h1>My Applications</h1>
+
+{% if applications %}
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Job</th>
+        <th>Status</th>
+        <th>Resume</th>
+        <th>Action</th>
+    </tr>
+    {% for app in applications %}
+    <tr>
+        <td>{{ app.job.title }}</td>
+        <td>{{ app.get_status_display }}</td>
+        <td>
+            {% if app.resume %}
+                <a href="{{ app.resume.url }}" target="_blank">View Resume</a>
+            {% else %}
+                No file uploaded
+            {% endif %}
+        </td>
+        <td>
+            {% if app.status == 'submitted' %}
+                <a href="{% url 'edit_application' app.pk %}">Edit Resume</a>
+            {% else %}
+                Cannot edit
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>You have not submitted any applications yet.</p>
+{% endif %}
+
+<a href="{% url 'home' %}">Back to Submit New Application</a>
+
+</body>
+</html>    
